@@ -9,15 +9,30 @@ const PORT = 3000;
 app.use(express.static("public"));
 
 // Endpoint pour récupérer la liste des fichiers
-app.get("/api/files", (req, res) => {
-  const dirPath = path.join(__dirname, "files");
+app.get("/api/premiere", (req, res) => {
+  const dirPath = path.join(__dirname, "premiere");
 
   fs.readdir(dirPath, (err, files) => {
     if (err) return res.status(500).json({ error: "Impossible de lire les fichiers" });
 
     const fileList = files.map(file => ({
       name: file,
-      url: `/files/${file}`
+      url: `/premiere/${file}`
+    }));
+
+    res.json(fileList);
+  });
+});
+
+app.get("/api/term", (req, res) => {
+  const dirPath = path.join(__dirname, "term");
+
+  fs.readdir(dirPath, (err, files) => {
+    if (err) return res.status(500).json({ error: "Impossible de lire les fichiers" });
+
+    const fileList = files.map(file => ({
+      name: file,
+      url: `/term/${file}`
     }));
 
     res.json(fileList);
